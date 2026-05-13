@@ -110,7 +110,7 @@ const Hero = () => {
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-5 pt-28 pb-14 flex flex-col lg:flex-row items-center gap-10">
 
-        {/* LEFT — Copy */}
+        {/* LEFT — Copy (badge + headline + subtitle sempre no topo) */}
         <div className="flex-1 flex flex-col items-start w-full">
           <div className="mb-5 inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/40 bg-accent/10 text-accent font-mono text-xs uppercase tracking-wider" ref={addToRefs}>
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
@@ -127,7 +127,8 @@ const Hero = () => {
             Análise simultânea em +30 bancos e 5 modalidades de crédito para seu cliente comprar no seu estabelecimento.
           </p>
 
-          <div className="flex flex-col sm:flex-row flex-wrap gap-3 w-full sm:w-auto" ref={addToRefs}>
+          {/* CTAs — visíveis só no desktop aqui, no mobile aparecem abaixo do vídeo */}
+          <div className="hidden lg:flex flex-wrap gap-3" ref={addToRefs}>
             <a href="#start" className="magnetic-btn flex items-center justify-center gap-3 bg-accent text-white px-7 py-3.5 rounded-full font-sans font-bold text-base hover:shadow-[0_0_30px_rgba(124,29,209,0.5)] transition-shadow">
               Começar Agora <ArrowRight size={18} />
             </a>
@@ -136,8 +137,8 @@ const Hero = () => {
             </a>
           </div>
 
-          {/* Stats bar */}
-          <div className="flex gap-6 sm:gap-10 mt-10 pt-6 border-t border-white/10 w-full" ref={addToRefs}>
+          {/* Stats — desktop only */}
+          <div className="hidden lg:flex gap-10 mt-10 pt-6 border-t border-white/10 w-full">
             {[['30+', 'Bancos'], ['5', 'Modalidades'], ['97%', 'Aprovação']].map(([n, l]) => (
               <div key={l}>
                 <p className="font-sans font-bold text-2xl md:text-3xl text-white">{n}</p>
@@ -152,17 +153,11 @@ const Hero = () => {
           <div className="relative">
             <div className="absolute inset-0 bg-accent/30 blur-[60px] rounded-full scale-75 pointer-events-none" />
             <div className="relative w-[220px] sm:w-[260px] md:w-[300px] bg-[#0D0D1A] rounded-[3rem] border-4 border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.7)] overflow-hidden aspect-[9/19]">
-              {/* Notch */}
               <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#0D0D1A] rounded-full z-30 border border-white/5" />
-
-              {/* VSL Video — SEM autoPlay, COM som */}
               <HeroVSL />
             </div>
-
-            {/* Floating badge — movido para fora do frame */}
           </div>
 
-          {/* Badge + Hint abaixo do celular */}
           <div className="mt-4 flex flex-col items-center gap-3">
             <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl px-4 py-3 flex items-center gap-3">
               <div className="w-7 h-7 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 font-bold text-sm">✓</div>
@@ -171,7 +166,6 @@ const Hero = () => {
                 <p className="font-mono text-white/40 text-[10px]">há 2 minutos</p>
               </div>
             </div>
-
             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
               <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
               <span className="font-mono text-[11px] text-white/50">Assista com som ligado</span>
@@ -179,10 +173,29 @@ const Hero = () => {
           </div>
         </div>
 
+        {/* CTAs + Stats — mobile only, aparecem abaixo do vídeo */}
+        <div className="lg:hidden w-full flex flex-col gap-3">
+          <a href="#start" className="magnetic-btn flex items-center justify-center gap-3 bg-accent text-white px-7 py-4 rounded-full font-sans font-bold text-base hover:shadow-[0_0_30px_rgba(124,29,209,0.5)] transition-shadow">
+            Começar Agora <ArrowRight size={18} />
+          </a>
+          <a href="#falar" className="magnetic-btn flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-7 py-4 rounded-full font-sans font-semibold text-base hover:bg-white/20 transition-colors">
+            Falar com especialista
+          </a>
+          <div className="flex justify-around mt-4 pt-4 border-t border-white/10 w-full">
+            {[['30+', 'Bancos'], ['5', 'Modalidades'], ['97%', 'Aprovação']].map(([n, l]) => (
+              <div key={l} className="text-center">
+                <p className="font-sans font-bold text-2xl text-white">{n}</p>
+                <p className="font-mono text-[10px] text-white/40 uppercase tracking-wider mt-1">{l}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );
 };
+
 
 // Sub-componente: player VSL dentro do Hero
 const HeroVSL = () => {
