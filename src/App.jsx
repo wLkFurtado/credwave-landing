@@ -3,7 +3,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, Activity, Clock, Play, MessageCircle } from 'lucide-react';
 import BanksMarquee from './components/BanksMarquee';
-import SocialProof from './components/SocialProof';
 import ProblemSection from './components/ProblemSection';
 import SolutionSection from './components/SolutionSection';
 import BenefitsSection from './components/BenefitsSection';
@@ -14,33 +13,65 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const links = [
+    { href: '#features', label: 'Funcionalidades' },
+    { href: '#philosophy', label: 'Filosofia' },
+    { href: '#protocol', label: 'Protocolo' },
+  ];
+
   return (
-    <nav className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 rounded-full flex items-center justify-between px-5 py-2 shadow-[0_4px_30px_rgba(0,0,0,0.15)] ${
-      scrolled
-        ? 'bg-white/70 backdrop-blur-xl border border-white/40 w-[90%] md:w-[600px]'
-        : 'bg-white w-[95%] md:w-[780px]'
-    }`}>
-      <div className="font-sans font-bold text-xl tracking-tight text-white flex items-center gap-2">
+    <>
+      <nav className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 rounded-full flex items-center justify-between px-5 py-2 shadow-[0_4px_30px_rgba(0,0,0,0.15)] ${
+        scrolled
+          ? 'bg-white/70 backdrop-blur-xl border border-white/40 w-[92%] md:w-[600px]'
+          : 'bg-white w-[92%] md:w-[780px]'
+      }`}>
         <img src="/logo-new.png" alt="Credwave Logo" className={`w-auto transition-all duration-500 ${scrolled ? 'h-8 md:h-10' : 'h-10 md:h-12'}`} />
-      </div>
-      <div className="hidden md:flex items-center gap-6 text-sm font-sans">
-        <a href="#features" className="text-[#081752] hover:text-accent transition-colors hover-lift font-medium">Funcionalidades</a>
-        <a href="#philosophy" className="text-[#081752] hover:text-accent transition-colors hover-lift font-medium">Filosofia</a>
-        <a href="#protocol" className="text-[#081752] hover:text-accent transition-colors hover-lift font-medium">Protocolo</a>
-      </div>
-      <a href="#start" className="magnetic-btn overflow-hidden relative group bg-accent hover:opacity-90 px-5 py-2 rounded-full text-sm font-sans font-bold text-white shadow-[0_4px_15px_rgba(124,29,209,0.3)]">
-        <span className="relative z-10">Acessar Sistema</span>
-      </a>
-    </nav>
+
+        {/* Desktop links */}
+        <div className="hidden md:flex items-center gap-6 text-sm font-sans">
+          {links.map(l => (
+            <a key={l.href} href={l.href} className="text-[#081752] hover:text-accent transition-colors hover-lift font-medium">{l.label}</a>
+          ))}
+        </div>
+
+        {/* Desktop CTA */}
+        <a href="#start" className="hidden md:block magnetic-btn bg-accent hover:opacity-90 px-5 py-2 rounded-full text-sm font-sans font-bold text-white shadow-[0_4px_15px_rgba(124,29,209,0.3)]">
+          Acessar Sistema
+        </a>
+
+        {/* Mobile hamburger */}
+        <button
+          className="md:hidden flex flex-col gap-1.5 p-2"
+          onClick={() => setMenuOpen(o => !o)}
+          aria-label="Menu"
+        >
+          <span className={`block w-5 h-0.5 bg-[#081752] transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+          <span className={`block w-5 h-0.5 bg-[#081752] transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
+          <span className={`block w-5 h-0.5 bg-[#081752] transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+        </button>
+      </nav>
+
+      {/* Mobile dropdown */}
+      {menuOpen && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 w-[92%] z-40 bg-white rounded-3xl shadow-2xl border border-gray-100 px-6 py-6 flex flex-col gap-4 md:hidden">
+          {links.map(l => (
+            <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="text-[#081752] font-sans font-semibold text-lg hover:text-accent transition-colors">{l.label}</a>
+          ))}
+          <a href="#start" onClick={() => setMenuOpen(false)} className="mt-2 bg-accent text-white px-6 py-3 rounded-full font-sans font-bold text-center hover:opacity-90 transition-opacity">
+            Acessar Sistema
+          </a>
+        </div>
+      )}
+    </>
   );
 };
 
@@ -77,53 +108,50 @@ const Hero = () => {
         <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[600px] h-[600px] bg-accent/20 blur-[140px] rounded-full pointer-events-none"></div>
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-36 pb-20 flex flex-col lg:flex-row items-center gap-16">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 pt-28 pb-14 flex flex-col lg:flex-row items-center gap-10">
 
         {/* LEFT — Copy */}
-        <div className="flex-1 flex flex-col items-start">
-          <div className="mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/40 bg-accent/10 text-accent font-mono text-xs uppercase tracking-wider" ref={addToRefs}>
+        <div className="flex-1 flex flex-col items-start w-full">
+          <div className="mb-5 inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/40 bg-accent/10 text-accent font-mono text-xs uppercase tracking-wider" ref={addToRefs}>
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
             +500 empresários já faturam mais
           </div>
 
-          <h1 className="text-5xl md:text-7xl leading-[1.08] mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl leading-[1.08] mb-5">
             <span className="block font-sans font-bold text-white tracking-tight" ref={addToRefs}>Transforme "Não tenho</span>
             <span className="block font-sans font-bold text-white tracking-tight" ref={addToRefs}>limite" em</span>
             <span className="block font-serif italic text-accent" ref={addToRefs}>venda fechada.</span>
           </h1>
 
-          <p className="font-sans text-white/60 text-lg md:text-xl max-w-lg mb-10" ref={addToRefs}>
+          <p className="font-sans text-white/60 text-base md:text-xl max-w-lg mb-8" ref={addToRefs}>
             Análise simultânea em +30 bancos e 5 modalidades de crédito para seu cliente comprar no seu estabelecimento.
           </p>
 
-          <div className="flex flex-wrap gap-4" ref={addToRefs}>
-            <a href="#start" className="magnetic-btn flex items-center gap-3 bg-accent text-white px-8 py-4 rounded-full font-sans font-bold text-lg hover:shadow-[0_0_30px_rgba(124,29,209,0.5)] transition-shadow">
-              Começar Agora <ArrowRight size={20} />
+          <div className="flex flex-col sm:flex-row flex-wrap gap-3 w-full sm:w-auto" ref={addToRefs}>
+            <a href="#start" className="magnetic-btn flex items-center justify-center gap-3 bg-accent text-white px-7 py-3.5 rounded-full font-sans font-bold text-base hover:shadow-[0_0_30px_rgba(124,29,209,0.5)] transition-shadow">
+              Começar Agora <ArrowRight size={18} />
             </a>
-            <a href="#falar" className="magnetic-btn flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-4 rounded-full font-sans font-semibold text-lg hover:bg-white/20 transition-colors">
+            <a href="#falar" className="magnetic-btn flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-7 py-3.5 rounded-full font-sans font-semibold text-base hover:bg-white/20 transition-colors">
               Falar com especialista
             </a>
           </div>
 
           {/* Stats bar */}
-          <div className="flex gap-10 mt-14 pt-8 border-t border-white/10 w-full" ref={addToRefs}>
-            {[['30+', 'Bancos integrados'], ['5', 'Modalidades'], ['97%', 'Taxa de aprovação']].map(([n, l]) => (
+          <div className="flex gap-6 sm:gap-10 mt-10 pt-6 border-t border-white/10 w-full" ref={addToRefs}>
+            {[['30+', 'Bancos'], ['5', 'Modalidades'], ['97%', 'Aprovação']].map(([n, l]) => (
               <div key={l}>
-                <p className="font-sans font-bold text-3xl text-white">{n}</p>
-                <p className="font-mono text-xs text-white/40 uppercase tracking-wider mt-1">{l}</p>
+                <p className="font-sans font-bold text-2xl md:text-3xl text-white">{n}</p>
+                <p className="font-mono text-[10px] text-white/40 uppercase tracking-wider mt-1">{l}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* RIGHT — VSL Player */}
-        <div className="flex-shrink-0 flex flex-col items-center" ref={addToRefs}>
+        <div className="flex-shrink-0 flex flex-col items-center w-full lg:w-auto" ref={addToRefs}>
           <div className="relative">
-            {/* Glow behind phone */}
             <div className="absolute inset-0 bg-accent/30 blur-[60px] rounded-full scale-75 pointer-events-none" />
-
-            {/* Phone frame */}
-            <div className="relative w-[260px] md:w-[300px] bg-[#0D0D1A] rounded-[3rem] border-4 border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.7)] overflow-hidden aspect-[9/19]">
+            <div className="relative w-[220px] sm:w-[260px] md:w-[300px] bg-[#0D0D1A] rounded-[3rem] border-4 border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.7)] overflow-hidden aspect-[9/19]">
               {/* Notch */}
               <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#0D0D1A] rounded-full z-30 border border-white/5" />
 
@@ -594,7 +622,6 @@ const App = () => {
       <Navbar />
       <Hero />
       <BanksMarquee />
-      <SocialProof />
       <ProblemSection />
       <SolutionSection />
       <Features />

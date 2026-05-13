@@ -10,16 +10,16 @@ const modalities = [
 ];
 
 const SolutionSection = () => (
-  <section id="solucao" className="py-24 bg-dark px-6 relative overflow-hidden">
+  <section id="solucao" className="py-16 md:py-24 bg-dark px-5 relative overflow-hidden">
     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent/10 blur-[120px] rounded-full pointer-events-none" />
     <div className="max-w-7xl mx-auto relative z-10">
-      <div className="text-center mb-14">
+      <div className="text-center mb-10">
         <p className="text-accent font-mono text-xs uppercase tracking-widest mb-3">A Solução</p>
-        <h2 className="font-sans font-bold text-4xl md:text-5xl text-white mb-4">5 formas de aprovar crédito na hora</h2>
-        <p className="text-light/50 text-lg max-w-xl mx-auto">Análise simultânea em +30 bancos para encontrar a melhor opção para seu cliente em segundos.</p>
+        <h2 className="font-sans font-bold text-3xl md:text-5xl text-white mb-4">5 formas de aprovar crédito na hora</h2>
+        <p className="text-light/50 text-base md:text-lg max-w-xl mx-auto">Análise simultânea em +30 bancos para encontrar a melhor opção para seu cliente em segundos.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         {modalities.map(({ emoji, title, desc }, i) => (
           <div key={i} className="bg-white/3 border border-accent/10 rounded-2xl p-7 flex gap-5 items-start hover:border-accent/30 hover:-translate-y-1 transition-all duration-300 group">
             <div className="text-3xl flex-shrink-0 mt-1">{emoji}</div>

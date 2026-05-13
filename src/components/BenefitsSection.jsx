@@ -9,13 +9,13 @@ const benefits = [
 ];
 
 const BenefitsSection = () => (
-  <section id="beneficios" className="py-24 bg-[#060610] px-6">
+  <section id="beneficios" className="py-16 md:py-24 bg-[#060610] px-5">
     <div className="max-w-7xl mx-auto">
-      <div className="text-center mb-14">
+      <div className="text-center mb-10">
         <p className="text-accent font-mono text-xs uppercase tracking-widest mb-3">Por que escolher</p>
-        <h2 className="font-sans font-bold text-4xl md:text-5xl text-white mb-4">Vantagens que sua concorrência não conhece</h2>
+        <h2 className="font-sans font-bold text-3xl md:text-5xl text-white mb-4">Vantagens que sua concorrência não conhece</h2>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {benefits.map(({ icon: Icon, title, desc }, i) => (
           <div key={i} className="bg-white/3 border border-white/5 rounded-2xl p-8 flex gap-6 items-start hover:border-accent/20 hover:-translate-y-1 transition-all duration-300 group">
             <div className="w-14 h-14 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
