@@ -44,7 +44,7 @@ const Navbar = () => {
         </div>
 
         {/* Desktop CTA */}
-        <a href="#start" className="hidden md:block magnetic-btn bg-accent hover:opacity-90 px-5 py-2 rounded-full text-sm font-sans font-bold text-white shadow-[0_4px_15px_rgba(124,29,209,0.3)]">
+        <a href="https://wave.wecred.pro/login" target="_blank" rel="noreferrer" className="hidden md:block magnetic-btn bg-accent hover:opacity-90 px-5 py-2 rounded-full text-sm font-sans font-bold text-white shadow-[0_4px_15px_rgba(124,29,209,0.3)]">
           Acessar Sistema
         </a>
 
@@ -66,7 +66,7 @@ const Navbar = () => {
           {links.map(l => (
             <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="text-[#081752] font-sans font-semibold text-lg hover:text-accent transition-colors">{l.label}</a>
           ))}
-          <a href="#start" onClick={() => setMenuOpen(false)} className="mt-2 bg-accent text-white px-6 py-3 rounded-full font-sans font-bold text-center hover:opacity-90 transition-opacity">
+          <a href="https://wave.wecred.pro/login" target="_blank" rel="noreferrer" onClick={() => setMenuOpen(false)} className="mt-2 bg-accent text-white px-6 py-3 rounded-full font-sans font-bold text-center hover:opacity-90 transition-opacity">
             Acessar Sistema
           </a>
         </div>
@@ -94,36 +94,32 @@ const Hero = () => {
 
   return (
     <section ref={containerRef} className="relative min-h-[100dvh] w-full overflow-hidden bg-[#081752] flex items-center">
-      {/* Background: Financial district at night */}
+      {/* Background: gradiente puro sem imagem */}
       <div className="absolute inset-0 z-0">
-        <img
-          src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&q=80&w=1920"
-          alt="Mercado financeiro"
-          className="w-full h-full object-cover opacity-20"
-        />
-        {/* Deep gradient left-to-right so text stays readable */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081752] via-[#081752]/90 to-[#081752]/50"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#081752] via-transparent to-[#081752]/60"></div>
-        {/* Purple glow accent */}
-        <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[600px] h-[600px] bg-accent/20 blur-[140px] rounded-full pointer-events-none"></div>
+        {/* Gradiente base de cima pra baixo */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0d1f6e] via-[#081752] to-[#04102e]"></div>
+        {/* Glow roxo central */}
+        <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-violet-600/20 blur-[130px] rounded-full pointer-events-none"></div>
+        {/* Glow azul sutil direita */}
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-blue-700/15 blur-[120px] rounded-full pointer-events-none"></div>
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-5 pt-28 pb-14 flex flex-col lg:flex-row items-center gap-10">
 
         {/* LEFT — Copy (badge + headline + subtitle sempre no topo) */}
         <div className="flex-1 flex flex-col items-start w-full">
-          <div className="mb-5 inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/40 bg-accent/10 text-accent font-mono text-xs uppercase tracking-wider" ref={addToRefs}>
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+          <div className="mb-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/30 bg-white/10 text-white font-mono text-xs uppercase tracking-wider" ref={addToRefs}>
+            <span className="w-1.5 h-1.5 rounded-full bg-violet-300 animate-pulse"></span>
             +500 empresários já faturam mais
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-7xl leading-[1.08] mb-5">
             <span className="block font-sans font-bold text-white tracking-tight" ref={addToRefs}>Transforme "Não tenho</span>
             <span className="block font-sans font-bold text-white tracking-tight" ref={addToRefs}>limite" em</span>
-            <span className="block font-serif italic text-accent" ref={addToRefs}>venda fechada.</span>
+            <span className="block font-serif italic bg-gradient-to-r from-white via-violet-200 to-violet-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(167,139,250,0.5)]" ref={addToRefs}>venda fechada.</span>
           </h1>
 
-          <p className="font-sans text-white/60 text-base md:text-xl max-w-lg mb-8" ref={addToRefs}>
+          <p className="font-sans text-white/80 text-base md:text-xl max-w-lg mb-8" ref={addToRefs}>
             Análise simultânea em +30 bancos e 5 modalidades de crédito para seu cliente comprar no seu estabelecimento.
           </p>
 
@@ -138,11 +134,11 @@ const Hero = () => {
           </div>
 
           {/* Stats — desktop only */}
-          <div className="hidden lg:flex gap-10 mt-10 pt-6 border-t border-white/10 w-full">
+          <div className="hidden lg:flex gap-10 mt-10 pt-6 border-t border-white/20 w-full">
             {[['30+', 'Bancos'], ['5', 'Modalidades'], ['97%', 'Aprovação']].map(([n, l]) => (
               <div key={l}>
                 <p className="font-sans font-bold text-2xl md:text-3xl text-white">{n}</p>
-                <p className="font-mono text-[10px] text-white/40 uppercase tracking-wider mt-1">{l}</p>
+                <p className="font-mono text-[10px] text-white/70 uppercase tracking-wider mt-1">{l}</p>
               </div>
             ))}
           </div>
@@ -215,10 +211,9 @@ const HeroVSL = () => {
         playsInline
         onPause={() => setPlaying(false)}
         onEnded={() => setPlaying(false)}
-        poster="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&q=80&w=600&h=1300"
       >
-        <source src="https://res.cloudinary.com/dhsgmhaak/video/upload/q_auto,f_webm,w_1080/v1778644220/videos/Cred_wave_lkxpso.mov" type="video/webm" />
-        <source src="https://res.cloudinary.com/dhsgmhaak/video/upload/q_auto,f_mp4,w_1080/v1778644220/videos/Cred_wave_lkxpso.mov" type="video/mp4" />
+        <source src="https://res.cloudinary.com/dhsgmhaak/video/upload/q_auto,f_webm,w_1080/v1778717525/videos/lp-video_qubygv.mov" type="video/webm" />
+        <source src="https://res.cloudinary.com/dhsgmhaak/video/upload/q_auto,f_mp4,w_1080/v1778717525/videos/lp-video_qubygv.mov" type="video/mp4" />
       </video>
 
       {!playing && (
