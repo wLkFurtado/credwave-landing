@@ -8,8 +8,13 @@ import SolutionSection from './components/SolutionSection';
 import BenefitsSection from './components/BenefitsSection';
 import Testimonials from './components/Testimonials';
 import FAQSection from './components/FAQSection';
+import FormModal from './components/FormModal';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Estado global do modal (simples — sem Context)
+let _openModal = () => {};
+export const openFormModal = () => _openModal(true);
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -75,7 +80,7 @@ const Navbar = () => {
   );
 };
 
-const Hero = () => {
+const Hero = ({ onOpenModal }) => {
   const containerRef = useRef(null);
   const textRef = useRef([]);
 
@@ -125,12 +130,12 @@ const Hero = () => {
 
           {/* CTAs — visíveis só no desktop aqui, no mobile aparecem abaixo do vídeo */}
           <div className="hidden lg:flex flex-wrap gap-3" ref={addToRefs}>
-            <a href="#start" className="magnetic-btn flex items-center justify-center gap-3 bg-accent text-white px-7 py-3.5 rounded-full font-sans font-bold text-base hover:shadow-[0_0_30px_rgba(124,29,209,0.5)] transition-shadow">
+            <button onClick={onOpenModal} className="magnetic-btn flex items-center justify-center gap-3 bg-accent text-white px-7 py-3.5 rounded-full font-sans font-bold text-base hover:shadow-[0_0_30px_rgba(124,29,209,0.5)] transition-shadow">
               Começar Agora <ArrowRight size={18} />
-            </a>
-            <a href="#falar" className="magnetic-btn flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-7 py-3.5 rounded-full font-sans font-semibold text-base hover:bg-white/20 transition-colors">
+            </button>
+            <button onClick={onOpenModal} className="magnetic-btn flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-7 py-3.5 rounded-full font-sans font-semibold text-base hover:bg-white/20 transition-colors">
               Falar com especialista
-            </a>
+            </button>
           </div>
 
           {/* Stats — desktop only */}
@@ -171,12 +176,12 @@ const Hero = () => {
 
         {/* CTAs + Stats — mobile only, aparecem abaixo do vídeo */}
         <div className="lg:hidden w-full flex flex-col gap-3">
-          <a href="#start" className="magnetic-btn flex items-center justify-center gap-3 bg-accent text-white px-7 py-4 rounded-full font-sans font-bold text-base hover:shadow-[0_0_30px_rgba(124,29,209,0.5)] transition-shadow">
+          <button onClick={onOpenModal} className="magnetic-btn flex items-center justify-center gap-3 bg-accent text-white px-7 py-4 rounded-full font-sans font-bold text-base hover:shadow-[0_0_30px_rgba(124,29,209,0.5)] transition-shadow">
             Começar Agora <ArrowRight size={18} />
-          </a>
-          <a href="#falar" className="magnetic-btn flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-7 py-4 rounded-full font-sans font-semibold text-base hover:bg-white/20 transition-colors">
+          </button>
+          <button onClick={onOpenModal} className="magnetic-btn flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-7 py-4 rounded-full font-sans font-semibold text-base hover:bg-white/20 transition-colors">
             Falar com especialista
-          </a>
+          </button>
           <div className="flex justify-around mt-4 pt-4 border-t border-white/10 w-full">
             {[['30+', 'Bancos'], ['5', 'Modalidades'], ['97%', 'Aprovação']].map(([n, l]) => (
               <div key={l} className="text-center">
@@ -625,10 +630,14 @@ const Footer = () => {
 
 
 const App = () => {
+  const [modalOpen, setModalOpen] = React.useState(false);
+  _openModal = setModalOpen;
+
   return (
     <div className="w-full bg-dark min-h-screen">
-      <Navbar />
-      <Hero />
+      <FormModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <Navbar onOpenModal={() => setModalOpen(true)} />
+      <Hero onOpenModal={() => setModalOpen(true)} />
       <BanksMarquee />
       <ProblemSection />
       <SolutionSection />
@@ -638,7 +647,7 @@ const App = () => {
       <Testimonials />
       <Protocol />
       <FAQSection />
-      <CTA />
+      <CTA onOpenModal={() => setModalOpen(true)} />
       <Footer />
     </div>
   );
